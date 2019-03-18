@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: create default file paths
+      file:
+        path: /home/incoming
+        owner: vytautas
+        group: users
+        state: directory
+        mode: 0755

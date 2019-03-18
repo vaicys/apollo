@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+  - name: create user accounts
+    user:
+      name: "{{ item.username }}"
+      password: "{{ item.password | password_hash('sha512') }}"
+    with_items: "{{ users }}"
+    loop_control:
+      label: "{{ item.username }}"

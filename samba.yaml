@@ -1,0 +1,28 @@
+---
+- hosts: all
+  tasks:
+  - name: ensure samba is at the latest version
+    yum:
+      name: samba
+      state: latest
+  - name: write samba config file
+    template:
+      src: configs/smb.conf
+      dest: /etc/samba/smb.conf
+    notify:
+      - restart samba
+  - name: ensure samba is running
+    service:
+      name: smb
+      state: started
+  - name: set samba passwords for each user
+    shell: "printf '{{ item.password }}\n{{ item.password }}\n' | smbpasswd -a {{ item.username }}"
+    with_items:
+      - "{{ users }}"
+    loop_control:
+      label: "{{ item.username }}"
+  handlers:
+    - name: restart samba
+      service:
+        name: smb
+        state: restarted
