@@ -8,3 +8,24 @@
     with_items: "{{ users }}"
     loop_control:
       label: "{{ item.username }}"
+  - name: create service accounts
+    user:
+      name: "{{ item.username }}"
+      password: "{{ item.password | password_hash('sha512') }}"
+    with_items: "{{ services }}"
+    loop_control:
+      label: "{{ item.username }}"
+  - name: create torrents group
+    group:
+      name: torrent-users
+      state: present
+  - name: add vytautas to torrents group
+    user:
+      name: vytautas
+      groups: torrent-users
+      append: yes
+  - name: add qbittorrent to torrents group
+    user:
+      name: qbittorrent
+      groups: torrent-users
+      append: yes

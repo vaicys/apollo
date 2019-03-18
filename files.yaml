@@ -5,6 +5,6 @@
       file:
         path: /home/incoming
         owner: vytautas
-        group: users
+        group: torrent-users
         state: directory
-        mode: 0755
+        mode: 0775
