@@ -1,10 +1,15 @@
 ---
 - hosts: all
   tasks:
-  - name: load users
+  - name: Load users from vault
     include_vars:
       file: vars/users.yaml
-- import_playbook: users.yaml
-- import_playbook: files.yaml
-- import_playbook: samba.yaml
-- import_playbook: qbittorrent.yaml
+  - name: Upgrade all packages to the latest version
+    apt:
+      upgrade: dist
+
+- import_playbook: playbooks/users.yaml
+#- import_playbook: playbooks/files.yaml
+#- import_playbook: playbooks/samba.yaml
+#- import_playbook: playbooks/qbittorrent.yaml
+#- import_playbook: playbooks/nginx.yaml

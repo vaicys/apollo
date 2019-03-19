@@ -1,0 +1,25 @@
+---
+- hosts: all
+  tasks:
+  - name: Create torrents group
+    group:
+      name: torrent-users
+      state: present
+  - name: Create user accounts with special groups
+    user:
+      name: "{{ item.username }}"
+      password: "{{ item.password | password_hash('sha512') }}"
+      groups: "{{ item.groups }}"
+      append: yes
+    with_items: "{{ users }}"
+    when: item.groups is defined
+    loop_control:
+      label: "{{ item.username }}"
+  - name: Create other user accounts
+    user:
+      name: "{{ item.username }}"
+      password: "{{ item.password | password_hash('sha512') }}"
+    with_items: "{{ users }}"
+    when: item.groups is not defined
+    loop_control:
+      label: "{{ item.username }}"

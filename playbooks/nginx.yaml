@@ -1,0 +1,23 @@
+---
+- hosts: all
+  tasks:
+  - name: Ensure nginx is installed and at latest version
+    apt:
+      name: nginx
+      state: latest
+      update_cache: yes
+  - name: Write nginx config file
+    template:
+      src: ../configs/nginx-default-site
+      dest: /etc/nginx/sites-available/default
+    notify:
+      - restart nginx
+  - name: Ensure nginx is running
+    service:
+      name: nginx
+      state: started
+  handlers:
+    - name: Restart nginx
+      service:
+        name: nginx
+        state: restarted
