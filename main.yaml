@@ -7,9 +7,12 @@
   - name: Upgrade all packages to the latest version
     apt:
       upgrade: dist
+      update_cache: yes
 
+- import_playbook: playbooks/ufw.yaml
 - import_playbook: playbooks/users.yaml
-#- import_playbook: playbooks/files.yaml
-#- import_playbook: playbooks/samba.yaml
-#- import_playbook: playbooks/qbittorrent.yaml
-#- import_playbook: playbooks/nginx.yaml
+- import_playbook: playbooks/files.yaml
+- import_playbook: playbooks/samba.yaml
+- import_playbook: playbooks/qbittorrent.yaml
+- import_playbook: playbooks/nginx.yaml
+- import_playbook: playbooks/certbot.yaml

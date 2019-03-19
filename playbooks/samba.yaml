@@ -5,7 +5,6 @@
     apt:
       name: samba
       state: latest
-      update_cache: yes
   - name: Write samba config file
     template:
       src: ../configs/smb.conf
@@ -23,7 +22,7 @@
     loop_control:
       label: "{{ item.username }}"
   handlers:
-    - name: Restart samba
+    - name: restart samba
       service:
         name: smbd
         state: restarted

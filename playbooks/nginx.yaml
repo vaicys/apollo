@@ -5,7 +5,6 @@
     apt:
       name: nginx
       state: latest
-      update_cache: yes
   - name: Write nginx config file
     template:
       src: ../configs/nginx-default-site
@@ -17,7 +16,7 @@
       name: nginx
       state: started
   handlers:
-    - name: Restart nginx
+    - name: restart nginx
       service:
         name: nginx
         state: restarted
