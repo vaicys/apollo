@@ -2,9 +2,8 @@ To install the latest Ansible version, follow the [official](https://docs.ansibl
 
 To execute the playbook:
 ```
-# DO NOT SKIP THE COMMA at the end of the domain name
-
-$ ansible-playbook -i "[fully_qualified_domain_name]," --vault-password-file ~/vault_key site.yml
+# do not skip the comma at the end of the fully qualified domain name
+$ ansible-playbook -i "[FQDN]," [--vault-password-file VAULT_KEY] [--private-key PRIVATE_KEY_FILE] [-u REMOTE_USER] site.yml
 ```
 
 To work with encrypted variable files:
