@@ -1,0 +1,36 @@
+---
+- name: create share paths
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ item.owner }}"
+    group: "{{ item.group }}"
+    state: directory
+    mode: 0775
+  loop: "{{ shares }}"
+  loop_control:
+    label: "{{ item.name }}"
+
+- name: ensure samba is installed
+  apt:
+    name: samba
+    state: latest
+
+- name: configure samba
+  template:
+    src: templates/smb.conf.j2
+    dest: /etc/samba/smb.conf
+  notify:
+    - restart samba
+
+- name: ensure samba is running
+  service:
+    name: smbd
+    state: started
+
+- name: set samba passwords for each user
+  shell: "printf '{{ item.password }}\n{{ item.password }}\n' | smbpasswd -a {{ item.username }}"
+  with_items:
+    - "{{ users }}"
+  loop_control:
+    label: "{{ item.username }}"
+

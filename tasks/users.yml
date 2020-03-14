@@ -1,0 +1,26 @@
+---
+- name: create groups
+  group:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ user_groups }}"
+
+- name: create user accounts
+  user:
+    name: "{{ item.username }}"
+    password: "{{ item.password | password_hash('sha512') }}"
+    groups: "{{ item.groups }}"
+    append: yes
+  loop: "{{ users }}"
+  loop_control:
+    label: "{{ item.username }}"
+  when: item.groups is defined
+
+- name: create groupless user accounts
+  user:
+    name: "{{ item.username }}"
+    password: "{{ item.password | password_hash('sha512') }}"
+  loop: "{{ users }}"
+  loop_control:
+    label: "{{ item.username }}"
+  when: item.groups is not defined

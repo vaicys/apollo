@@ -1,0 +1,46 @@
+---
+- name: add qbittorrent repository
+  apt_repository:
+    repo: 'ppa:qbittorrent-team/qbittorrent-stable'
+
+- name: ensure qbittorrent is installed
+  apt:
+    name: qbittorrent-nox
+    state: latest
+    update_cache: yes
+
+- name: Write qbittorrent service file
+  template:
+    src: templates/qbittorrent.service
+    dest: /etc/systemd/system/qbittorrent.service
+
+- name: create temp path
+  file:
+    path: /var/main/Incoming/temp
+    owner: vytautas
+    group: torrent-users
+    state: directory
+    mode: 0775
+
+- name: reload systemctl daemon
+  shell: systemctl daemon-reload
+
+- name: create configuration path
+  file:
+    path: /home/qbittorrent/.config/qBittorrent
+    state: directory
+    owner: qbittorrent
+    group: qbittorrent
+    mode: 0755
+
+- name: configure qbittorrent
+  template:
+    src: templates/qbittorrent.conf
+    dest: /home/qbittorrent/.config/qBittorrent/qBittorrent.conf
+  notify:
+    - restart qbittorrent
+
+- name: ensure qbittorrent is running
+  service:
+    name: qbittorrent
+    state: started

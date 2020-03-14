@@ -1,0 +1,48 @@
+---
+- name: ensure uncomplicated firewall is installed
+  apt:
+    name: ufw
+    state: latest
+- name: reset the firewall configuration
+  ufw:
+    state: reset
+# OpenSSH
+- ufw:
+    rule: allow
+    proto: tcp
+    port: "22"
+# NGINX
+- ufw:
+    rule: allow
+    proto: tcp
+    port: "80"
+- ufw:
+    rule: allow
+    proto: tcp
+    port: "443"
+# Samba
+- ufw:
+    rule: allow
+    proto: udp
+    port: "137:138"
+- ufw:
+    rule: allow
+    proto: tcp
+    port: "139"
+- ufw:
+    rule: allow
+    proto: tcp
+    port: "445"
+# qBittorrent
+- ufw:
+    rule: allow
+    port: "8999"
+- ufw:
+    policy: allow
+    direction: outgoing
+- name: deny incoming traffic
+  ufw:
+    policy: deny
+    direction: incoming
+  notify:
+    - restart ufw

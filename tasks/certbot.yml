@@ -1,0 +1,16 @@
+---
+- name: add certbot repository
+  apt_repository:
+    repo: 'ppa:certbot/certbot'
+- name: ensure certbot is installed
+  apt:
+    name: python-certbot-nginx
+    state: latest
+    update_cache: yes
+- name: configure SSL certificate for nginx
+  shell: "certbot --nginx -m vaicys@gmail.com --agree-tos -d {{ inventory_hostname }} -n"
+- name: schedule certbot renewal
+  cron:
+    name: Certbot certificate renewal
+    job: certbot renew --post-hook "systemctl reload nginx.service"
+    special_time: weekly

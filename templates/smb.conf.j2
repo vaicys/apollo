@@ -1,0 +1,12 @@
+[global]
+	log file = /var/log/samba/samba.log
+	security = user
+	map to guest = bad user
+
+{% for share in shares %}
+[{{ share.name }}]
+	path =  {{ share.path }}
+	read only = No
+	valid users = {{ users | map(attribute='username')|join(' ') }}
+
+{% endfor %}
