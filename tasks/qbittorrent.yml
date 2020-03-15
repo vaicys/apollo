@@ -35,7 +35,7 @@
 
 - name: configure qbittorrent
   template:
-    src: templates/qbittorrent.conf
+    src: templates/qBittorrent.conf
     dest: /home/qbittorrent/.config/qBittorrent/qBittorrent.conf
   notify:
     - restart qbittorrent
