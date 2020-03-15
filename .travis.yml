@@ -3,10 +3,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_3b9f0b9d36d1_key -iv $encrypted_3b9f0b9d36d1_iv
   -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
-- ssh-keyscan -t "$TRAVIS_SSH_KEY_TYPES" -H $HOSTNAME 2>&1 | tee -a ${TRAVIS_HOME}/.ssh/known_hosts
 install:
 - pip install ansible
 script:
-- ansible-playbook -i "$HOSTNAME," --vault-password-file $VAULT_KEY --private-key
-  $PRIVATE_KEY_FILE -u root site.yml
-
+- ansible-playbook -i "$HOSTNAME," --vault-password-file $VAULT_KEY --private-key $PRIVATE_KEY_FILE -u root -e "HOST_KEY_CHECKING=False" site.yml
