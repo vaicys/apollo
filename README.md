@@ -1,3 +1,6 @@
+Continuous deployment with Travis CI  
+[![Travis CI build](https://travis-ci.org/vaicys/apollo.svg?branch=master)](https://travis-ci.org/vaicys/apollo)
+
 To install the latest Ansible version, follow the [official](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) instructions.
 
 To execute the playbook:
