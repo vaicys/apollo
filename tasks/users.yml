@@ -4,6 +4,8 @@
     name: "{{ item }}"
     state: present
   loop: "{{ user_groups }}"
+  loop_control:
+    label: group
 
 - name: create user accounts
   user:
