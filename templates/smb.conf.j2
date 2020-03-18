@@ -7,6 +7,6 @@
 [{{ share.name }}]
 	path =  {{ share.path }}
 	read only = No
-	valid users = {{ users | map(attribute='username')|join(' ') }}
+	valid users = {{ users | map(attribute='username') | join(' ') }}
 
 {% endfor %}
