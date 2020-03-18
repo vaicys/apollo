@@ -8,7 +8,7 @@
     mode: 0775
   loop: "{{ shares }}"
   loop_control:
-    label: "{{ item.name }}"
+    label: share
 
 - name: ensure samba is installed
   apt:
@@ -29,8 +29,7 @@
 
 - name: set samba passwords for each user
   shell: "printf '{{ item.password }}\n{{ item.password }}\n' | smbpasswd -a {{ item.username }}"
-  with_items:
-    - "{{ users }}"
+  loop: "{{ users }}"
   loop_control:
-    label: "{{ item.username }}"
+    label: user
 

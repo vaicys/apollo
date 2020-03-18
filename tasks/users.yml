@@ -13,7 +13,7 @@
     append: yes
   loop: "{{ users }}"
   loop_control:
-    label: "{{ item.username }}"
+    label: user
   when: item.groups is defined
 
 - name: create groupless user accounts
@@ -22,5 +22,5 @@
     password: "{{ item.password | password_hash('sha512') }}"
   loop: "{{ users }}"
   loop_control:
-    label: "{{ item.username }}"
+    label: user
   when: item.groups is not defined
