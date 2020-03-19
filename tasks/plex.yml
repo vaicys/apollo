@@ -1,0 +1,54 @@
+---
+- name: ensure module prerequisites are installed
+  apt:
+    name: python-apt
+    state: latest
+
+- name: add plex repository key
+  apt_key:
+    url: https://downloads.plex.tv/plex-keys/PlexSign.key
+    state: present
+
+- name: add plex repository
+  apt_repository:
+    repo: deb https://downloads.plex.tv/repo/deb public main
+    state: present
+
+- name: ensure plex media server is installed
+  apt:
+    name: plexmediaserver
+    state: latest
+
+- name: reconfigure storage location
+  service:
+    name: plexmediaserver
+    state: stopped
+
+- file:
+    path: "{{ media_root }}/plexmediaserver"
+    recurse: yes
+    owner: plex
+    group: plex
+    state: directory
+
+- file:
+    path: /var/lib/plexmediaserver
+    state: absent
+
+- file:
+    src: "{{ media_root }}/plexmediaserver"
+    dest: /var/lib/plexmediaserver
+    owner: plex
+    group: plex
+    state: link
+
+- name: ensure plex media server is started
+  service:
+    name: plexmediaserver
+    state: started
+
+- name: add plex user to torrent-users
+  user:
+    name: plex
+    groups: torrent-users
+    append: yes

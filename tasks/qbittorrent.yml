@@ -16,7 +16,7 @@
 
 - name: create temp path
   file:
-    path: /var/main/Incoming/temp
+    path: "{{ media_root }}/Incoming/temp"
     owner: vytautas
     group: torrent-users
     state: directory
@@ -35,7 +35,7 @@
 
 - name: configure qbittorrent
   template:
-    src: templates/qBittorrent.conf
+    src: templates/qbittorrent.conf.j2
     dest: /home/qbittorrent/.config/qBittorrent/qBittorrent.conf
   notify:
     - restart qbittorrent

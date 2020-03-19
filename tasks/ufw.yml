@@ -3,9 +3,10 @@
   apt:
     name: ufw
     state: latest
-- name: reset the firewall configuration
-  ufw:
+
+- ufw:
     state: reset
+
 # OpenSSH
 - ufw:
     rule: allow
@@ -37,12 +38,19 @@
 - ufw:
     rule: allow
     port: "8999"
+# PLEX
+- ufw:
+    rule: allow
+    proto: tcp
+    port: "32400"
+
 - ufw:
     policy: allow
     direction: outgoing
-- name: deny incoming traffic
-  ufw:
+- ufw:
     policy: deny
     direction: incoming
+- ufw:
+    state: enabled
   notify:
     - restart ufw
