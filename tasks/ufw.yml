@@ -4,7 +4,8 @@
     name: ufw
     state: latest
 
-- ufw: reset state
+- name: reset state
+- ufw:
     state: reset
 
 # OpenSSH
