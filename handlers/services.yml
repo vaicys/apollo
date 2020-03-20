@@ -13,8 +13,3 @@
   service:
     name: qbittorrent
     state: restarted
-
-- name: restart ufw
-  service:
-    name: ufw
-    state: restarted

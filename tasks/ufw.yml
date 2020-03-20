@@ -52,5 +52,3 @@
     direction: incoming
 - ufw:
     state: enabled
-  notify:
-    - restart ufw
