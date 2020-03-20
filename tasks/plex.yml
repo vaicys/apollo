@@ -24,7 +24,8 @@
     name: plexmediaserver
     state: stopped
 
-- file:
+- name: set correct owner and group
+  file:
     path: "{{ media_root }}/plexmediaserver"
     recurse: yes
     owner: plex
