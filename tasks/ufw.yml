@@ -5,7 +5,7 @@
     state: latest
 
 - name: reset state
-- ufw:
+  ufw:
     state: reset
 
 # OpenSSH
