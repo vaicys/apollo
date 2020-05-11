@@ -1,7 +1,6 @@
 ---
-- name: add qbittorrent repository
-  apt_repository:
-    repo: 'ppa:qbittorrent-team/qbittorrent-stable'
+- name: enable universe repository
+  shell: "add-apt-repository universe"
 
 - name: ensure qbittorrent is installed
   apt:
