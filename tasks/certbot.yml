@@ -12,7 +12,7 @@
     state: latest
 - name: ensure certbox nginx plugin is installed
   apt:
-    name: python3-certbox-nginx
+    name: python3-certbot-nginx
     state: latest
 - name: configure SSL certificate for nginx
   shell: "certbot --nginx -m vaicys@gmail.com --agree-tos -d {{ inventory_hostname }} -n"

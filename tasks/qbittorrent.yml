@@ -9,7 +9,7 @@
     state: latest
     update_cache: yes
 
-- name: Write qbittorrent service file
+- name: write qbittorrent service file
   template:
     src: templates/qbittorrent.service
     dest: /etc/systemd/system/qbittorrent.service
