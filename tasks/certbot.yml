@@ -1,12 +1,15 @@
 ---
-- name: add certbot repository
-  apt_repository:
-    repo: 'ppa:certbot/certbot'
+- name: install prerequisites
+  apt:
+    name: software-properties-common
+    state: latest
+- name: enable universe repository
+  shell: "add-apt-repository universe"
 - name: ensure certbot is installed
   apt:
-    name: python-certbot-nginx
-    state: latest
+    name: certbot
     update_cache: yes
+    state: latest
 - name: configure SSL certificate for nginx
   shell: "certbot --nginx -m vaicys@gmail.com --agree-tos -d {{ inventory_hostname }} -n"
 - name: schedule certbot renewal
