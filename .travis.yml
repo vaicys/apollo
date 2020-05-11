@@ -4,8 +4,9 @@ before_install:
   -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
 - ssh-keyscan -H $HOSTNAME >> ~/.ssh/known_hosts
+- echo "[defaults]" >> ansible.cfg
 - echo "deprecation_warnings=False" >> ansible.cfg
 install:
 - pip install ansible
 script:
-- ansible-playbook -i "$HOSTNAME," --vault-password-file $VAULT_KEY --private-key $PRIVATE_KEY_FILE -u root site.yml
+- ansible-playbook -i "$HOSTNAME," --vault-password-file $VAULT_KEY_FILE --private-key $PRIVATE_KEY_FILE -u root site.yml
