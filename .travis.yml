@@ -4,6 +4,7 @@ before_install:
   -in secrets.tar.enc -out secrets.tar -d
 - tar xvf secrets.tar
 - ssh-keyscan -H $HOSTNAME >> ~/.ssh/known_hosts
+- echo "deprecation_warnings=False" >> ansible.cfg
 install:
 - pip install ansible
 script:
