@@ -43,4 +43,5 @@
 - name: ensure qbittorrent is running
   service:
     name: qbittorrent
+    enabled: yes
     state: started
