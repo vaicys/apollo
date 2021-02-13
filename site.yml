@@ -2,7 +2,7 @@
 - hosts: all
   gather_facts: no
   vars:
-    media_root: /var/main
+    media_root: /media/main
 
   vars_files:
     - vars/users.yml

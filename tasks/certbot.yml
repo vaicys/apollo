@@ -4,7 +4,7 @@
     name: software-properties-common
     state: latest
 - name: enable universe repository
-  shell: "add-apt-repository universe"
+  shell: "apt-add-repository universe -y"
 - name: ensure certbot is installed
   apt:
     name: certbot

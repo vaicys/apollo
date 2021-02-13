@@ -1,6 +1,6 @@
 ---
 - name: enable universe repository
-  shell: "add-apt-repository universe"
+  shell: "apt-add-repository universe -y"
 
 - name: ensure qbittorrent is installed
   apt:
@@ -16,10 +16,9 @@
 - name: create temp path
   file:
     path: "{{ media_root }}/Incoming/temp"
-    owner: vytautas
     group: torrent-users
     state: directory
-    mode: 0775
+    mode: 02775
 
 - name: reload systemctl daemon
   shell: systemctl daemon-reload

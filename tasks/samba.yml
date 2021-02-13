@@ -2,10 +2,9 @@
 - name: create share paths
   file:
     path: "{{ item.path }}"
-    owner: "{{ item.owner }}"
     group: "{{ item.group }}"
     state: directory
-    mode: 0775
+    mode: 02775
   loop: "{{ shares }}"
   loop_control:
     label: share

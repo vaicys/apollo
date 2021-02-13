@@ -1,9 +1,4 @@
 ---
-- name: ensure module prerequisites are installed
-  apt:
-    name: python-apt
-    state: latest
-
 - name: add plex repository key
   apt_key:
     url: https://downloads.plex.tv/plex-keys/PlexSign.key
@@ -28,8 +23,8 @@
   file:
     path: "{{ media_root }}/plexmediaserver"
     recurse: yes
-    owner: plex
     group: plex
+    mode: 02775
     state: directory
 
 - file:
@@ -39,7 +34,6 @@
 - file:
     src: "{{ media_root }}/plexmediaserver"
     dest: /var/lib/plexmediaserver
-    owner: plex
     group: plex
     state: link
 
