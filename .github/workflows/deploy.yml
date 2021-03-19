@@ -6,16 +6,20 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
 
+    env:
+      ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+      HOSTNAME: ${{ secrets.HOSTNAME }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Decrypt secrets
-        run: gpg --quiet --batch --yes --decrypt --passphrase="${{ secrets.ENCRYPTION_KEY }}"
+        run: gpg --quiet --batch --yes --decrypt --passphrase="$ENCRYPTION_KEY"
           --output secrets.tar secrets.tar.gpg
       - name: Unpack secrets
         run: tar xvf secrets.tar
       - name: Add target to known hosts
-        run: ssh-keyscan -H ${{ secrets.HOSTNAME }} > ~/.ssh/known_hosts
+        run: ssh-keyscan -H $HOSTNAME > ~/.ssh/known_hosts
       - name: Ansible setup
         shell: bash
         run: echo "[defaults]" >> ansible.cfg;
@@ -23,5 +27,5 @@ jobs:
       - name: Install Ansible
         run: pip install ansible
       - name: Run Ansible playbook
-        run: ansible-playbook -i "${{ secrets.HOSTNAME }}," --vault-password-file vault_key
+        run: ansible-playbook -i "$HOSTNAME," --vault-password-file vault_key
           --private-key ansible-key.id_rsa -u root site.yml
