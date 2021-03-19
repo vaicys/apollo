@@ -9,8 +9,6 @@ jobs:
     env:
       ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
       HOSTNAME: ${{ secrets.HOSTNAME }}
-      VAULT_KEY_FILE: ${{ secrets.VAULT_KEY_FILE }}
-      PRIVATE_KEY_FILE: ${{ secrets.PRIVATE_KEY_FILE }}
 
     steps:
       - name: Checkout code
@@ -27,5 +25,5 @@ jobs:
       - name: Install Ansible
         run: pip install ansible
       - name: Run Ansible playbook
-        run: ansible-playbook -i "$HOSTNAME," --vault-password-file $VAULT_KEY_FILE
-          --private-key $PRIVATE_KEY_FILE -u root site.yml
+        run: ansible-playbook -i "$HOSTNAME," --vault-password-file vault_key
+          --private-key ansible-key.id_rsa -u root site.yml
