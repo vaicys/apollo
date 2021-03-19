@@ -20,11 +20,9 @@ jobs:
           --output secrets.tar secrets.tar.gpg
       - name: Unpack secrets
         run: tar xvf secrets.tar
-      - name: Setup known hosts
-        run: ssh-keyscan -H $HOSTNAME >> ~/.ssh/known_hosts
       - name: Ansible setup
         shell: bash
-        run: echo "[defaults]" >> ansible.cfg; \
+        run: echo "[defaults]" >> ansible.cfg;
           echo "deprecation_warnings=False" >> ansible.cfg
       - name: Install Ansible
         run: pip install ansible
