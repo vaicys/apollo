@@ -18,6 +18,8 @@ jobs:
           --output secrets.tar secrets.tar.gpg
       - name: Unpack secrets
         run: tar xvf secrets.tar
+      - name: Create .ssh settings directory
+        run: mkdir ~/.ssh
       - name: Add target to known hosts
         run: ssh-keyscan -H $HOSTNAME > ~/.ssh/known_hosts
       - name: Ansible setup
