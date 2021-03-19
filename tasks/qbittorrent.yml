@@ -1,12 +1,11 @@
 ---
 - name: enable universe repository
-  shell: "apt-add-repository universe -y"
+  shell: "apt-add-repository ppa:qbittorrent-team/qbittorrent-stable -y"
 
 - name: ensure qbittorrent is installed
   apt:
     name: qbittorrent-nox
     state: latest
-    update_cache: yes
 
 - name: write qbittorrent service file
   template:

@@ -18,6 +18,15 @@
     label: user
   when: item.groups is defined
 
+- name: set user shell
+  user:
+    name: "{{ item.username }}"
+    shell: "{{ item.shell }}"
+  loop: "{{ users }}"
+  loop_control:
+    label: user
+  when: item.shell is defined
+
 - name: create groupless user accounts
   user:
     name: "{{ item.username }}"
