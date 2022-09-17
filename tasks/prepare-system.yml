@@ -1,0 +1,14 @@
+---
+- name: upgrade all packages
+  apt:
+    update_cache: yes
+    upgrade: "yes"
+    autoclean: yes
+    autoremove: yes
+
+- name: mount external hard drive
+  mount:
+    path: "{{ media_root }}"
+    src: "UUID={{ external_harddrive_uuid }}"
+    fstype: ext4
+    state: mounted

@@ -1,4 +1,4 @@
-# Ansible playbook for home Raspberry PI 4
+# Ansible playbook for home Ubuntu Server
 
 [![Deploy](https://github.com/vaicys/apollo/actions/workflows/deploy.yml/badge.svg)](https://github.com/vaicys/apollo/actions/workflows/deploy.yml)
 

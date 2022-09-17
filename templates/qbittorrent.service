@@ -1,12 +1,16 @@
 [Unit]
 Description=qBittorrent Daemon Service
 After=network.target
+StartLimitIntervalSec=600
+StartLimitBurst=5
 
 [Service]
 User=qbittorrent
 Group=torrent-users
 ExecStart=/usr/bin/qbittorrent-nox
 ExecStop=/usr/bin/killall -w qbittorrent-nox
+Restart=on-failure
+RestartSec=15s
 
 [Install]
 WantedBy=multi-user.target

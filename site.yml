@@ -3,13 +3,14 @@
   gather_facts: no
   vars:
     media_root: /media/main
+    external_harddrive_uuid: 80d6a9e6-69f8-48ba-8f17-b2fea86457d4
 
   vars_files:
     - vars/users.yml
     - vars/shares.yml
 
   tasks:
-    - import_tasks: tasks/update-system.yml
+    - import_tasks: tasks/prepare-system.yml
     - import_tasks: tasks/ufw.yml
     - import_tasks: tasks/users.yml
     - import_tasks: tasks/samba.yml
