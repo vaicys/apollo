@@ -23,6 +23,7 @@
   file:
     path: "{{ media_root }}/plexmediaserver"
     recurse: yes
+    owner: plex
     group: plex
     mode: 02775
     state: directory

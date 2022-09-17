@@ -37,6 +37,13 @@
   notify:
     - restart qbittorrent
 
+- name: configure watched folders
+  template:
+    src: templates/watched_folders.json.j2
+    dest: /home/qbittorrent/.config/qBittorrent/watched_folders.json
+  notify:
+    - restart qbittorrent
+
 - name: ensure qbittorrent is running
   service:
     name: qbittorrent
