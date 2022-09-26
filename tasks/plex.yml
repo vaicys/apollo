@@ -1,8 +1,8 @@
 ---
 - name: add plex repository key
-  apt_key:
-    url: https://downloads.plex.tv/plex-keys/PlexSign.key
-    state: present
+  shell: "curl https://downloads.plex.tv/plex-keys/PlexSign.key | gpg --dearmor | tee /etc/apt/trusted.gpg.d/plex.gpg"
+  args:
+    warn: no
 
 - name: add plex repository
   apt_repository:
